@@ -1,0 +1,14 @@
+/* resources */
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/fonts.css);
+
+#root {
+  color: #FFF;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+body {
+  background-color: #202020;
+}

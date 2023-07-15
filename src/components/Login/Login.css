@@ -1,0 +1,39 @@
+.login__input-label {
+  color: #8B8B8B;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 0 5px 0;
+}
+
+.login__input {
+  width: 100%;
+  background: #202020;
+  border: none;
+  border-bottom: 1px solid #424242;
+  color: #FFF;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  padding: 0 0 10px 0;
+}
+
+.login__input:focus {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #4285F4;
+}
+
+.login__error {
+  height: 12px;
+  color: #EE3465;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 6px 0 6px 0;
+}
+
+.login__empty-place {
+  height: 69px;
+}
