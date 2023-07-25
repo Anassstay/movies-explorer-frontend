@@ -27,7 +27,8 @@ function Navigation({ isLoggedIn }) {
 
   return (
     <nav className={navigationClass}>
-      {isLoggedIn ? (
+      {/* isLoggedIn */}
+      {true ? (
         <div className='navigation__container'>
           {showBurgerMenu && (
             <button type='button' className='navigation__burger_button' onClick={() => setOpened(true)}></button>

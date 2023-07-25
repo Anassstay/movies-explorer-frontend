@@ -101,7 +101,7 @@
   
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 650px) {
   .aboutme__photo {
     width: 292px;
     height: 352px;

@@ -82,11 +82,7 @@
 }
 
 .search__submit_mobile {
-  width: 0;
-  height: 0;
-  background: none;
-  margin: 0;
-  padding: 0;
+  visibility: hidden;
 }
 
 .search__area {
@@ -155,6 +151,7 @@
   }
 
   .search__submit_mobile {
+    visibility: visible;
     width: 80px;
     height: 34px;
     background-image: url(../../../images/search.svg);

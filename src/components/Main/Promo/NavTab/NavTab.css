@@ -1,4 +1,4 @@
-.promo__navtab_list {
+.promo__navtab {
   display: flex;
   gap: 10px;
   list-style-type: none;
@@ -6,7 +6,7 @@
   padding: 0 0 30px 0;
 }
   
-.promo__navtab_list-item {
+.promo__navtab-item {
   background: #303030;
   min-width: 96px;
   min-height: 36px;
@@ -16,11 +16,11 @@
 }
 
 
-.promo__navtab_list-item:hover {
+.promo__navtab-item:hover {
   opacity: .8;
 }
   
-.promo__navtab_list-text {
+.promo__navtab-text {
   color: #FFF;
   min-width: 96px;
   min-height: 36px;
@@ -36,19 +36,19 @@
 }
 
 @media screen and (max-width: 450px) {
-  .promo__navtab_list {
+  .promo__navtab {
     gap: 6px;
     padding: 0 0 17px 0;
    }
 
-  .promo__navtab_list-item {
+  .promo__navtab-item {
     background: #303030;
     min-width: 82px;
     min-height: 26px;
     border-radius: 6px;
   }
 
-  .promo__navtab_list-text {
+  .promo__navtab-text {
     color: #FFF;
     min-width: 82px;
     min-height: 26px;

@@ -7,7 +7,7 @@
 
 .logo-link {
   transition: opacity .3s linear;
-  height: 0;
+  height: 38px;
 }
 
 .logo-link:hover {
