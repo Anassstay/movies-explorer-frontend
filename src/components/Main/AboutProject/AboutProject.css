@@ -1,0 +1,158 @@
+.project {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 110px 70px 110px 70px;
+}
+
+.project__about {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  list-style: none;
+  padding: 70px 0 0 0;
+  margin: 0;
+}
+
+.project__about-column {
+  max-width: 550px;
+  margin: 0;
+  padding: 0;
+}
+
+.project__about-subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.8px;
+  margin: 0;
+  padding: 0;
+}
+
+.project__about-text {
+  margin: 0;
+  padding: 26px 0 0 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.project__shedule {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  padding: 110px 0 0 0;
+  margin: 0;
+}
+
+.project__shedule-container {
+  width: 21%;
+  list-style: none;
+}
+
+.project__shedule-container_long {
+  width: 79%;
+}
+
+.project__shedule-subtitle {
+  min-height: 36px;
+  background: #3DDC84;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.project__shedule-subtitle_color {
+  background: #303030;
+  color: #FFF;
+}
+
+.project__shedule-text {
+  color: #a0a0a0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  text-align: center;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 900px) {
+  .project {
+    padding: 90px 50px 90px 50px;
+  }
+
+  .project__about {
+    gap: 30px;
+  }
+
+  .project__about-text {
+    font-size: 12px;
+    line-height: 18px;
+    padding: 22px 0 0 0;
+  }
+
+  .project__shedule {
+    padding: 93px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .project {
+    padding: 70px 18px 70px 18px;
+  }
+
+  .project__about {
+    flex-direction: column;
+    gap: 56px;
+    padding: 60px 0 0 0;
+  }
+
+  .project__about-subtitle {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+  
+  .project__about-text {
+    padding: 16px 0 0 0;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .project__shedule {
+    padding: 60px 0 0 0;
+  }
+
+  .project__shedule-container {
+    width: 35%;
+  }
+
+  .project__shedule-container_long {
+    width: 75%;
+  }
+  
+  .project__shedule-container_type_long {
+    width: 65%;
+  }
+
+  .project__shedule-subtitle {
+    font-size: 11px;
+  }
+  
+  .project__shedule-text {
+    font-size: 11px;
+  }
+}

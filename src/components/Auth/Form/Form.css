@@ -1,0 +1,44 @@
+.form {
+  width: 396px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.form__submit-button {
+  min-width: 396px;
+  min-height: 45px;
+  background: #4285F4;
+  border: none;
+  border-radius: 3px;
+  color: #FFF;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  margin: 128px 0 16px 0;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity .3s linear;
+}
+
+.form__submit-button:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 450px) {
+  .form {
+    min-width: 260px;
+  }
+
+  .form__submit-button {
+    min-width: 260px;
+    margin: 222px 0 14px 0;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .form {
+    width: 100%;
+  }
+}
