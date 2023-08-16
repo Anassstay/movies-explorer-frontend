@@ -47,6 +47,10 @@
   padding: 0 0 16px 0;
 }
 
+.profile__input_is_not-valid {
+  color: #ee3465;
+}
+
 .profile__input-label_email {
   margin-top: 17px;
   border: none;

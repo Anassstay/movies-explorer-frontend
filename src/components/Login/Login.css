@@ -25,6 +25,10 @@
   border-bottom: 1px solid #4285F4;
 }
 
+.login__input_is_not-valid {
+  color: #ee3465;
+}
+
 .login__error {
   height: 12px;
   color: #EE3465;

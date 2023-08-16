@@ -30,7 +30,7 @@
   margin: 0;
 }
 
-.movies-card__save-button {
+.movies-card__default {
   width: 30px;
   height: 30px;
   background: #313131;
@@ -43,15 +43,28 @@
   transition: opacity .3s linear;
 }
 
-.movies-card__save-button:hover {
-  opacity: .8;
-}
-
-.movies-card__save-button_active {
+.movies-card__save {
   width: 30px;
   height: 30px;
   background: #3ddc84;
   background-image: url('../../../images/save-active.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: opacity .3s linear;
+}
+
+.movies-card__save:hover {
+  opacity: .8;
+}
+
+.movies-card__remove {
+  width: 30px;
+  height: 30px;
+  background: #313131;
+  background-image: url('../../../images/save.svg');
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 30px;

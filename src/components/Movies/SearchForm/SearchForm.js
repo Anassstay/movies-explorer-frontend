@@ -6,7 +6,7 @@ import FilterCheckbox from './FilterCheckbox/FilterCheckbox';
 function SearchForm() {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
 
-  console.log(setButtonDisabled);
+  // console.log(setButtonDisabled);
 
   return (
     <section className='search'>
