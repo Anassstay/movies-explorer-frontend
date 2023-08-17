@@ -1,10 +1,10 @@
 import './Form.css';
 
-function Form({ name, children, buttonText }) {
+function Form(props) {
   return (
-    <form className='form' action='#' name={name}>
-      {children}
-    <button className='form__submit-button' type='submit'>{buttonText}</button>
+    <form className='form' name={props.name} onSubmit={props.handleSubmit}>
+      {props.children}
+    <button className='form__submit-button' type='submit'>{props.buttonText}</button>
     </form>
   );
 }
