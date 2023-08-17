@@ -48,7 +48,7 @@ function Navigation(props) {
             <AccountButton />
           </NavLink>
           <div className={burgerMenuClass}>
-            <BurgerMenu onClickClose={() => setOpened(false)} />
+            <BurgerMenu onClose={() => setOpened(false)} />
           </div>
         </div>
       ) : (

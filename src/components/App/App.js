@@ -19,40 +19,65 @@ import moviesApi from '../../utils/moviesApi';
 import auth from '../../utils/auth';
 
 
-function App() {
+function App () {
   const [currentUser, setCurrentUser] = useState({}); // содержит информацию о текущем пользователе
   const [isLoggedIn, setIsLoggedIn] = useState(false);  // состояние успешной авторизации определяет, авторизован ли пользователь
   const [isLoading, setIsLoading] = useState(true); // состояние загрузки  определяет, выполняется ли загрузка данных
+  const [initialSavedMovies, setInitialSavedMovies] = useState([]); //содержит исходный список сохраненных фильмов, полученный изначально
   const [savedMovies, setSavedMovies] = useState([]); // состояние, которое хранит список сохраненных фильмов
-  const [allMovies, setAllMovies] = useState([]);
+  const [initialAllMovies, setInitialAllMovies] = useState([]); //содержит исходный список всех фильмов, полученный изначально
+  const [allMovies, setAllMovies] = useState([]); //текущий список всех фильмов, который может изменяться в процессе работы
 
-  const navigate = useNavigate(); // хук 
+  const navigate = useNavigate(); // хук
 
   useEffect(() => {
     handleGetUser();
   }, []);
 
   useEffect(() => {
+    if (initialAllMovies.length && initialSavedMovies) {
+      const updatedMovies = initialAllMovies.map((movie) => (
+        initialSavedMovies.find((saved) => saved.movieId === movie.id)
+          ? { ...movie, class: 'save', key: movie.id }
+          : { ...movie, class: 'default', key: movie.id }
+      ));
+
+      const updatedSavedMovies = initialSavedMovies.map((movie) => (
+        { ...movie, class: 'remove', key: movie._id }
+      ));
+      setAllMovies(updatedMovies);
+      setSavedMovies(updatedSavedMovies);
+      localStorage.setItem('allMovies', JSON.stringify(updatedMovies));
+    }
+  }, [initialAllMovies, initialSavedMovies]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const allMoviesLocalStorage = localStorage.getItem('allMovies');
+      if (allMoviesLocalStorage?.length > 0) {
+        setInitialAllMovies(JSON.parse(allMoviesLocalStorage))
+      }
+      else {
+        moviesApi.getMovies()
+          .then((movies) => {
+            setInitialAllMovies(movies);
+          })
+          .catch(err => console.log(err))
+      }
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
     isLoggedIn &&
-      Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
-        .then((res) => {
-          const [movies, savedMovies] = res;
-          const updatedMovies = movies.map((movie) => (
-            savedMovies.find((saved) => saved.movieId === movie.id)
-              ? { ...movie, class: 'save', key: movie.id }
-              : { ...movie, class: 'default', key: movie.id }
-          ));
-          const updatedSavedMovies = savedMovies.map((movie) => (
-            { ...movie, class: 'remove', key: movie._id }
-          ));
-          setAllMovies(updatedMovies);
-          setSavedMovies(updatedSavedMovies);
+      mainApi.getSavedMovies()
+        .then((savedMovies) => {
+          setInitialSavedMovies(savedMovies);
         })
         .catch(err => console.log(err))
   }, [isLoggedIn]);
 
   //проверкa токена аутентификации и установкa соответствующих значений флага isLoggedIn и переменной currentUser
-  function handleGetUser() {
+  function handleGetUser () {
     auth.checkToken()
       .then((user) => {
         if (user && typeof user === 'object') {
@@ -65,7 +90,7 @@ function App() {
   }
 
   // регистрация
-  function handleRegister({ name, email, password }) {
+  function handleRegister ({ name, email, password }) {
     auth.register({ name, email, password })
       .then(() => {
         handleAutorize({ email, password });
@@ -74,7 +99,7 @@ function App() {
   }
 
   // аутентификация(вход)
-  function handleAutorize({ email, password }) {
+  function handleAutorize ({ email, password }) {
     setIsLoading(true);
     auth.authorize({ email, password })
       .then((res) => {
@@ -89,7 +114,7 @@ function App() {
       });
   };
 
-  function handleEditProfile({ name, email }) {
+  function handleEditProfile ({ name, email }) {
     mainApi.editProfile({ name, email })
       .then(() => {
         navigate('/profile', { replace: true });
@@ -107,8 +132,8 @@ function App() {
           movieToUpdate.id === res.movieId ? { ...movieToUpdate, class: 'save' } : movieToUpdate
         );
         setAllMovies(updatedMovies);
-        console.log(updatedMovies)
-        console.log('updatedMovies')
+        // console.log(updatedMovies)
+        // console.log('updatedMovies')
         res.class = 'remove';
         setSavedMovies((prevMovies) => [...prevMovies, res]);
       })
@@ -208,7 +233,7 @@ function App() {
                     isLoggedIn={isLoggedIn}
                     isLoading={isLoading}
                     onSignOut={handleSignOut}
-                    onSubmit={handleEditProfile}
+                    onEditProfile={handleEditProfile}
                   />
                 }
               />

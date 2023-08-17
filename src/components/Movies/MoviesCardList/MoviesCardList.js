@@ -14,9 +14,9 @@ function MoviesCardList(props) {
       {props.moviesCards.length >= props.maxMovies && (
         <button className='movies-card-list__more-button' type='button' onClick={props.addMovies}>Ещё</button>
       )}
-      {props.moviesCards.length < props.maxMovies && (
+      {/* {props.moviesCards.length < props.maxMovies && (
         <button className='movies-card-list__more-button movies-card-list__more-button_hidden' type='button'></button>
-      )}
+      )} */}
     </section>
   );
 }

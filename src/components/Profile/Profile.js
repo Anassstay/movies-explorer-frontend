@@ -1,7 +1,6 @@
 import './Profile.css';
 import { useContext, useState, useEffect } from 'react';
 import Header from '../Header/Header';
-import Form from '../Auth/Form/Form';
 import useForm from '../../hooks/useForm';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import { nameRegExp } from '../../utils/regExp';
@@ -24,83 +23,93 @@ function Profile(props) {
     resetValidation({ name: currentUser.name, email: currentUser.email }, {}, false);
   }, [currentUser, resetValidation]);
 
-  function handleEditClick() {
+  function handleEditClick () {
     setEditStatus(!isEdit);
   }
-  console.log(values);
-  function handleSubmit(e) {
+  function handleSubmit (e) {
     e.preventDefault();
+    console.log(values);
     props.onEditProfile(values);
   }
 
+  useEffect(() => {
+    function handleEscClose (e) {
+      if (e.key === 'Escape') {
+        handleEditClick();
+      }
+    }
+    if (isEdit) {
+      document.addEventListener('keydown', handleEscClose);
+    } else {
+      document.removeEventListener('keydown', handleEscClose);
+    }
+  }, [isEdit]);
+  
   return (
-  <>
-    <Header isLoggedIn={props.isLoggedIn} />
-    <main className='profile'>
-      <section className='profile__container'>
-        <h1 className='profile__title' place='profile'>{`Привет, ${currentUser.name || ''}!`}</h1>
-        <form 
-          className='profile__form'
-          onSubmit={handleSubmit}
-          isFormValid={isFormValid}
-          values={values}
-          isLoading={props.isLoading}
-          buttonText={props.isLoading ? 'Сохранение...' : 'Сохранить'}
-        >
-          <label className='profile__input-label' htmlFor='name'>Имя</label>
-          <input
-            className={`profile__input ${
-              errors.name ? 'profile__input_is_not-valid' : ''
-            }`}
-            placeholder='Имя'
-            type='text'
-            name='name'
-            id='name'
-            autoComplete='off'
-            required
-            minLength='2'
-            maxLength='30'
-            pattern={nameRegExp}
-            disabled={isEdit && !props.isLoading ? false : true}
-            onChange={onChange}
-            value={values.name || ""}
-          />
-          <label className='profile__input-label profile__input-label_email' htmlFor='email'>E-mail</label>
-          <input
-            className={`profile__input profile__input-label_email ${
-              errors.name ? 'profile__input_is_not-valid' : ''
-            }`}
-            placeholder='E-mail'
-            type='email'
-            name='email'
-            id='email'
-            autoComplete='off'
-            required
-            disabled={isEdit && !props.isLoading ? false : true}
-            onChange={onChange}
-            value={values.email || ""}
-          />
-          </form>
-
-          {isEdit ? (
-              <button
-                type="submit"
-                disabled={props.isLoading || !isFormValid || !isCurrentUser}
-                className={`profile__submit ${
-                  !isCurrentUser ? "profile__submit_not-changed" : ""
+    <>
+      <Header isLoggedIn={props.isLoggedIn} />
+      <main className='profile'>
+        <section className='profile__container'>
+          <h1 className='profile__title' place='profile'>{`Привет, ${currentUser.name || ''}!`}</h1>
+          <form
+            className='profile__form'
+            onSubmit={handleSubmit}
+            isFormValid={isFormValid}
+            values={values}
+            isLoading={props.isLoading}
+            buttonText={props.isLoading ? 'Сохранение...' : 'Сохранить'}
+          >
+            <label className='profile__input-label' htmlFor='name'>Имя</label>
+            <input
+              className={`profile__input ${errors.name ? 'profile__input_is_not-valid' : ''
                 }`}
+              placeholder='Имя'
+              type='text'
+              name='name'
+              id='name'
+              autoComplete='off'
+              required
+              minLength='2'
+              maxLength='30'
+              pattern={nameRegExp}
+              disabled={isEdit && !props.isLoading ? false : true}
+              onChange={onChange}
+              value={values.name || ''}
+            />
+            <label className='profile__input-label profile__input-label_email' htmlFor='email'>E-mail</label>
+            <input
+              className={`profile__input profile__input-label_email ${errors.name ? 'profile__input_is_not-valid' : ''
+                }`}
+              placeholder='E-mail'
+              type='email'
+              name='email'
+              id='email'
+              autoComplete='off'
+              required
+              disabled={isEdit && !props.isLoading ? false : true}
+              onChange={onChange}
+              value={values.email || ''}
+            />
+            {isEdit ? (
+              <button
+                type='submit'
+                disabled={props.isLoading || !isFormValid || !isCurrentUser}
+                className={`profile__submit ${!isCurrentUser ? 'profile__submit_not-changed' : ''
+                  }`}
               >
                 Сохранить
               </button>
-            ) : (
-          <div className='profile__buttons'>
-            <button className='profile__edit-button' type='button' onClick={handleEditClick}>Редактировать</button>
-            <button className='profile__logout-button' type='button'  onClick={props.onSignOut}>Выйти из аккаунта</button>
-          </div>
-        )}
-      </section>
-    </main>
-  </>
+            ) : ''}
+          </form>
+          {!isEdit ? (
+            <div className='profile__buttons'>
+              <button className='profile__edit-button' type='button' onClick={handleEditClick}>Редактировать</button>
+              <button className='profile__logout-button' type='button' onClick={props.onSignOut}>Выйти из аккаунта</button>
+            </div>
+          ) : ''}
+        </section>
+      </main>
+    </>
   );
 }
 
