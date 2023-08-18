@@ -4,3 +4,5 @@
 Запуск: npm start
 
 https://diploma.a.stay.nomoredomains.rocks
+
+https://github.com/Anassstay/movies-explorer-frontend/pull/3
