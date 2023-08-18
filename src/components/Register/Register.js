@@ -6,11 +6,10 @@ import { nameRegExp } from '../../utils/regExp';
 
 const Register = (props) => {
   const { values, errors, isFormValid, onChange } = useForm();
-  function handleSubmit(e) {
+  function handleSubmit (e) {
     e.preventDefault();
     props.onSignup(values);
   }
-console.log(values)
 
   return props.isLoggedIn ? (
     <Navigate to='/' replace />
@@ -25,12 +24,12 @@ console.log(values)
         name='register'
         handleSubmit={handleSubmit}
         isFormValid={isFormValid}
+        errorFetchAuth={props.errorFetchAuth}
       >
         <label className='register__input-label' htmlFor='name'>Имя</label>
         <input
-          className={`register__input ${
-            errors.name && 'register__input_is_not-valid'
-          }`}
+          className={`register__input ${errors.name && 'register__input_is_not-valid'
+            }`}
           placeholder='Имя'
           type='text'
           name='name'
@@ -56,7 +55,7 @@ console.log(values)
           form='form'
           autoComplete='off'
           required
-          minLength='5'
+          minLength='8'
           maxLength='30'
           disabled={props.isLoading ? true : false}
           value={values.email || ''}
@@ -73,7 +72,7 @@ console.log(values)
           form='form'
           autoComplete='off'
           required
-          minLength='5'
+          minLength='8'
           maxLength='30'
           disabled={props.isLoading ? true : false}
           value={values.password || ''}

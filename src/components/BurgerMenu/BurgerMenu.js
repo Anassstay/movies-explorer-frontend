@@ -4,7 +4,7 @@ import './BurgerMenu.css';
 import Popup from '../Popup/Popup';
 import AccountButton from '../Header/AccountButton/AccountButton';
 
-function BurgerMenu(props) {
+function BurgerMenu (props) {
   return (
     <Popup isOpen={props.isOpen} onClose={props.onClose}>
       <nav className={`burger-menu ${props.isOpen ? 'burger-menu_active' : ''}`}>
@@ -15,8 +15,8 @@ function BurgerMenu(props) {
         />
         <ul className='burger-menu__list'>
           <li className='burger-menu__list-item'>
-            <NavLink to='/' 
-              className={({ isActive }) =>`burger-menu__link ${isActive ? 'burger-menu__link_active' : ''}`}
+            <NavLink to='/'
+              className={({ isActive }) => `burger-menu__link ${isActive ? 'burger-menu__link_active' : ''}`}
               onClick={props.onClose}
             >
               Главная
@@ -24,7 +24,7 @@ function BurgerMenu(props) {
           </li>
           <li className='burger-menu__list-item'>
             <NavLink to='/movies'
-              className={({ isActive }) =>`burger-menu__link ${isActive ? 'burger-menu__link_active' : ''}`}
+              className={({ isActive }) => `burger-menu__link ${isActive ? 'burger-menu__link_active' : ''}`}
               onClick={props.onClose}
             >
               Фильмы
@@ -32,7 +32,7 @@ function BurgerMenu(props) {
           </li>
           <li className='burger-menu__list-item'>
             <NavLink to='/saved-movies'
-              className={({ isActive }) =>`burger-menu__link ${isActive ? 'burger-menu__link_active' : ''}`}
+              className={({ isActive }) => `burger-menu__link ${isActive ? 'burger-menu__link_active' : ''}`}
               onClick={props.onClose}
             >
               Сохранённые фильмы

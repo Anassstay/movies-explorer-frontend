@@ -8,9 +8,6 @@ import { ResizeHandler } from '../../utils/resizeHandler';
 import './Movies.css';
 
 function Movies (props) {
-  // console.log(allMovies);
-  // console.log("allMovies");
-
   const moviesToShowOnPageByWindowSize = ResizeHandler();
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQueryMovies') || '');
   const [shortFilmsFilter, setShortFilmsFilter] = useState(
@@ -39,7 +36,6 @@ function Movies (props) {
   // и movieCount (количество фильмов, которые нужно показать).
   const movies = filterMoviesHandler(props.movies, searchQuery, shortFilmsFilter, movieCount);
 
-
   //Каждый элемент массива movies преобразуется с помощью метода map в компонент MoviesCard, которому передаются следующие параметры:
   //key (уникальный идентификатор элемента), class (класс для стилизации компонента), movie (объект с информацией о фильме),
   //onRemove (обработчик удаления фильма) и onSave (обработчик сохранения фильма).
@@ -55,9 +51,6 @@ function Movies (props) {
       />
     );
   });
-
-  // console.log(movieToUpdate);
-  // console.log("movie");
 
   //Функция handleSearch принимает в качестве аргумента searchQuery и устанавливает его в качестве нового значения для состояния setSearchQuery.
   function handleSearch (searchQuery) {
@@ -81,6 +74,7 @@ function Movies (props) {
         onSearch={handleSearch}
         onToggle={handleShortFilmsFilterToggle}
         checked={shortFilmsFilter}
+        isDefaultValues={true}
       />
       {props.isLoading ? (
         <Preloader />

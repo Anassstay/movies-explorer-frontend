@@ -30,5 +30,6 @@ export function ResizeHandler() {
           clearTimeout(resizeTimeout);
       };
   }, []);
+  
   return moviesToShowOnPageByWindowSize;//переменная состояния moviesToDisplay для отображения правильного количества фильмов на странице в зависимости от размера окна
 }

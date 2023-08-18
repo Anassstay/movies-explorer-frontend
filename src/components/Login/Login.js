@@ -7,7 +7,7 @@ const Login = (props) => {
 
   const { values, errors, isFormValid, onChange } = useForm();
 
-  function handleSubmit(e) {
+  function handleSubmit (e) {
     e.preventDefault();
     props.onSignin(values);
   }
@@ -23,14 +23,14 @@ const Login = (props) => {
         url='/signup'
         linkText='Регистрация'
         name='login'
-        onSubmit={handleSubmit}
+        handleSubmit={handleSubmit}
         isFormValid={isFormValid}
+        errorFetchAuth={props.errorFetchAuth}
       >
         <label className='login__input-label' htmlFor='email'>E-mail</label>
         <input
-          className={`login__input ${
-            errors.email ? 'login__input_is_not-valid' : ''
-          }`}
+          className={`login__input ${errors.email ? 'login__input_is_not-valid' : ''
+            }`}
           placeholder='E-mail'
           type='email'
           name='email'
@@ -44,16 +44,15 @@ const Login = (props) => {
         <span className='login__error'>{errors.email}</span>
         <label className='login__input-label' htmlFor='password'>Пароль</label>
         <input
-          className={`login__input ${
-            errors.password ? 'login__input_is_not-valid' : ''
-          }`}
+          className={`login__input ${errors.password ? 'login__input_is_not-valid' : ''
+            }`}
           placeholder='Пароль'
           type='password'
           name='password'
           id='password'
           autoComplete='off'
           required
-          minLength='5'
+          minLength='8'
           maxLength='30'
           disabled={props.isLoading ? true : false}
           onChange={onChange}

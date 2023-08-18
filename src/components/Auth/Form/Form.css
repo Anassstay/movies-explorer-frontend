@@ -8,10 +8,10 @@
 .form__submit-button {
   min-width: 396px;
   min-height: 45px;
-  background: #4285F4;
+  background: #4285f4;
   border: none;
   border-radius: 3px;
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-size: 14px;
   font-weight: 500;
@@ -19,11 +19,15 @@
   margin: 128px 0 16px 0;
   padding: 0;
   cursor: pointer;
-  transition: opacity .3s linear;
+  transition: opacity 0.3s linear;
 }
 
 .form__submit-button:hover {
-  opacity: .8;
+  opacity: 0.8;
+}
+.form__submit-button:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
 
 @media screen and (max-width: 450px) {
