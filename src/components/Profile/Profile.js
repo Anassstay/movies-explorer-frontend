@@ -5,7 +5,7 @@ import useForm from '../../hooks/useForm';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import { nameRegExp } from '../../utils/regExp';
 
-function Profile(props) {
+function Profile (props) {
   const { values, errors, isFormValid, onChange, resetValidation } = useForm();
   const currentUser = useContext(CurrentUserContext);
   const [isCurrentUser, setUserDifference] = useState(true);
@@ -23,12 +23,21 @@ function Profile(props) {
     resetValidation({ name: currentUser.name, email: currentUser.email }, {}, false);
   }, [currentUser, resetValidation]);
 
+  useEffect(() => {
+    if (isEdit) {
+      if (props.statusFetchEditProfile) {
+        setEditStatus(false);
+      } else {
+        setEditStatus(true)
+      }
+    }
+  }, [props.statusFetchEditProfile])
+
   function handleEditClick () {
     setEditStatus(!isEdit);
   }
   function handleSubmit (e) {
     e.preventDefault();
-    console.log(values);
     props.onEditProfile(values);
   }
 
@@ -36,6 +45,7 @@ function Profile(props) {
     function handleEscClose (e) {
       if (e.key === 'Escape') {
         handleEditClick();
+        resetValidation({ name: currentUser.name, email: currentUser.email }, {}, false);
       }
     }
     if (isEdit) {
@@ -44,7 +54,7 @@ function Profile(props) {
       document.removeEventListener('keydown', handleEscClose);
     }
   }, [isEdit]);
-  
+
   return (
     <>
       <Header isLoggedIn={props.isLoggedIn} />
@@ -54,14 +64,10 @@ function Profile(props) {
           <form
             className='profile__form'
             onSubmit={handleSubmit}
-            isFormValid={isFormValid}
-            values={values}
-            isLoading={props.isLoading}
-            buttonText={props.isLoading ? 'Сохранение...' : 'Сохранить'}
           >
             <label className='profile__input-label' htmlFor='name'>Имя</label>
             <input
-              className={`profile__input ${errors.name ? 'profile__input_is_not-valid' : ''
+              className={`form profile__input ${errors.name ? 'profile__input_is_not-valid' : ''
                 }`}
               placeholder='Имя'
               type='text'
@@ -74,11 +80,12 @@ function Profile(props) {
               pattern={nameRegExp}
               disabled={isEdit && !props.isLoading ? false : true}
               onChange={onChange}
-              value={values.name || ''}
+              value={values.name || ""}
             />
+            <span className={`profile__error ${errors.name ? 'profile__error_active' : ''}`}>{errors.name}</span>
             <label className='profile__input-label profile__input-label_email' htmlFor='email'>E-mail</label>
             <input
-              className={`profile__input profile__input-label_email ${errors.name ? 'profile__input_is_not-valid' : ''
+              className={`profile__input profile__input-label_email ${errors.email ? 'profile__input_is_not-valid' : ''
                 }`}
               placeholder='E-mail'
               type='email'
@@ -88,18 +95,22 @@ function Profile(props) {
               required
               disabled={isEdit && !props.isLoading ? false : true}
               onChange={onChange}
-              value={values.email || ''}
+              value={values.email || ""}
             />
+            <span className={`profile__error ${errors.email ? 'profile__error_active' : ''}`}>{errors.email}</span>
             {isEdit ? (
-              <button
-                type='submit'
-                disabled={props.isLoading || !isFormValid || !isCurrentUser}
-                className={`profile__submit ${!isCurrentUser ? 'profile__submit_not-changed' : ''
-                  }`}
-              >
-                Сохранить
-              </button>
-            ) : ''}
+              <>
+                <button
+                  type="submit"
+                  disabled={props.isLoading || !isFormValid || !isCurrentUser}
+                  className={`profile__submit ${!isCurrentUser ? "profile__submit_not-changed" : ""
+                    }`}
+                >
+                  Сохранить
+                </button>
+              </>
+            ) : ""}
+            <span className={`profile__error ${props.errorFetchEditProfile ? 'profile__error_fetch' : ''}`}>{props.errorFetchEditProfile}</span>
           </form>
           {!isEdit ? (
             <div className='profile__buttons'>
@@ -234,7 +245,7 @@ export default Profile;
 //     <main className='profile'>
 //       <section className='profile__container'>
 //         <h1 className='profile__title' place='profile'>{`Привет, ${currentUser.name || ''}!`}</h1>
-//         <form 
+//         <form
 //           className='profile__form'
 //           onSubmit={handleSubmit}
 

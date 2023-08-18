@@ -6,15 +6,15 @@ class MainApi {
     this._baseUrl = this._options.baseUrl;
   }
 
-  _checkResponse(res) {
+  _checkResponse (res) {
     if (!res.ok) {
       return Promise.reject(`Ошибка: ${res.status}`);
     }
     return res.json()
   }
 
-  getUserInfo() {
-    return fetch(`${ BASE_URL }/users/me`, {
+  getUserInfo () {
+    return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -25,8 +25,8 @@ class MainApi {
       .then(this._checkResponse);
   }
 
-  editProfile({ name, email }) {
-    return fetch(`${ BASE_URL }/users/me`, {
+  editProfile ({ name, email }) {
+    return fetch(`${BASE_URL}/users/me`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {
@@ -38,8 +38,8 @@ class MainApi {
       .then(this._checkResponse);
   }
 
-  getSavedMovies() {
-    return fetch(`${ BASE_URL }/movies`, {
+  getSavedMovies () {
+    return fetch(`${BASE_URL}/movies`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -47,11 +47,11 @@ class MainApi {
         Accept: 'application/json',
       },
     })
-    .then(this._checkResponse);
+      .then(this._checkResponse);
   }
 
-  saveMovie(movie) {
-    return fetch(`${ BASE_URL }/movies`, {
+  saveMovie (movie) {
+    return fetch(`${BASE_URL}/movies`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -72,11 +72,11 @@ class MainApi {
         nameEN: movie.nameEN,
       }),
     })
-    .then(this._checkResponse);
+      .then(this._checkResponse);
   }
 
-  deleteMovie(movieId) {
-    return fetch(`${ BASE_URL }/movies${movieId}`, {
+  deleteMovie (movieId) {
+    return fetch(`${BASE_URL}/movies/${movieId}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: {
@@ -84,7 +84,7 @@ class MainApi {
         Accept: 'application/json',
       },
     })
-    .then(this._checkResponse);
+      .then(this._checkResponse);
   }
 };
 

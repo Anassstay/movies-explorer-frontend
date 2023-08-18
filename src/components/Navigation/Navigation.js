@@ -5,7 +5,7 @@ import '../Header/Header.css';
 import AccountButton from '../Header/AccountButton/AccountButton';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 
-function Navigation(props) {
+function Navigation (props) {
   const [opened, setOpened] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 

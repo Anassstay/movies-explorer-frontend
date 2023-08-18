@@ -9,7 +9,6 @@ function MoviesCard(props) {
     return `${hours}ч ${minutes}м`;
   }
 
-  // console.log(props.movie)
   function save() {
     props.onSave(props.movie);
   }

@@ -1,17 +1,15 @@
 import React from 'react';
 import './SearchForm.css';
-import FilterCheckbox from './FilterCheckbox/FilterCheckbox';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 
-function SearchForm ({ onSearch, onToggle, checked }) {
+function SearchForm ({ onSearch, onToggle, checked, isDefaultValues }) {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
 
-  // console.log(setButtonDisabled);
   function handleSubmit (e) {
     e.preventDefault();
     onSearch(e.target.search.value);
     onToggle(e.target.checkbox.checked)
-    // onSearch();
   }
   function handleChange (e) {
     if (e.target.id === 'checkbox') {
@@ -33,7 +31,7 @@ function SearchForm ({ onSearch, onToggle, checked }) {
               id='search'
               autoComplete='off'
               required
-              defaultValue={localStorage.getItem('searchQueryMovies') && localStorage.getItem('searchQueryMovies')}
+              defaultValue={isDefaultValues && localStorage.getItem('searchQueryMovies') ? localStorage.getItem('searchQueryMovies') : ''}
             >
             </input>
           </div>
@@ -43,7 +41,7 @@ function SearchForm ({ onSearch, onToggle, checked }) {
         <fieldset className='search__filter'>
           <button className='search__submit' type='submit' disabled={buttonDisabled ? true : false}></button>
           <div className='search__vertical-line'></div>
-          <FilterCheckbox />
+          <FilterCheckbox isDefaultValues={isDefaultValues} />
           <p className='search__checkbox-text'>Короткометражки</p>
         </fieldset>
       </form>

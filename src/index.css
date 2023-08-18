@@ -3,7 +3,7 @@
 @import url(./vendor/fonts/fonts.css);
 
 #root {
-  color: #FFF;
+  color: #fff;
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -11,4 +11,5 @@
 
 body {
   background-color: #202020;
+  margin: 0 auto;
 }

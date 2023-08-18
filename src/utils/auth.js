@@ -6,17 +6,15 @@ class Auth {
   }
 
   // проверить, есть ли ошибка
-  _checkError(res) {
+  _checkError (res) {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Статус ошибки: ${res.status}`);
+    return Promise.reject(`Статус ошибки: ${res.statusText || res.status}`);
   }
 
   // регистрация
-  register({name, email, password}) {
-    console.log(name, email, password);
-    console.log(JSON.stringify({name, email, password}));
+  register ({ name, email, password }) {
     return fetch(`${this._baseUrl}/signup`, {
       method: 'POST',
       credentials: "include",
@@ -26,11 +24,11 @@ class Auth {
       },
       body: JSON.stringify({ name, email, password }),
     })
-    .then((res) => this._checkError(res));
+      .then((res) => this._checkError(res));
   }
 
   // вход
-  authorize({ email, password }) {
+  authorize ({ email, password }) {
     return fetch(`${this._baseUrl}/signin`, {
       method: 'POST',
       credentials: "include",
@@ -40,24 +38,24 @@ class Auth {
       },
       body: JSON.stringify({ email, password }),
     })
-    .then((res) => this._checkError(res));
+      .then((res) => this._checkError(res));
   }
 
   // проверяем токен
-  checkToken() {
+  checkToken () {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
-      credentials: "include",
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         Accept: "application/json",
       },
     })
-    .then((res) => this._checkError(res));
+      .then((res) => this._checkError(res));
   }
 
   // удалить куки
-  logout() {
+  logout () {
     return fetch(`${this._baseUrl}/signout`, {
       method: 'GET',
       credentials: 'include',
@@ -66,11 +64,9 @@ class Auth {
         Accept: 'application/json',
       },
     })
-    .then((res) => this._checkError(res));
+      .then((res) => this._checkError(res));
   }
 }
-
-
 
 const auth = new Auth(BASE_URL);
 export default auth;

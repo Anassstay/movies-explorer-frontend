@@ -11,7 +11,7 @@
   display: flex;
   gap: 26px;
   align-items: center;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .movies-card__title {
@@ -23,7 +23,7 @@
 }
 
 .movies-card__duration {
-  color: #8B8B8B;
+  color: #8b8b8b;
   font-size: 11px;
   font-weight: 400;
   line-height: normal;
@@ -34,43 +34,43 @@
   width: 30px;
   height: 30px;
   background: #313131;
-  background-image: url('../../../images/save.svg');
+  background-image: url('../../images/save.svg');
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 30px;
   border: none;
   cursor: pointer;
-  transition: opacity .3s linear;
+  transition: opacity 0.3s linear;
 }
 
 .movies-card__save {
   width: 30px;
   height: 30px;
   background: #3ddc84;
-  background-image: url('../../../images/save-active.svg');
+  background-image: url('../../images/save-active.svg');
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 30px;
   border: none;
   cursor: pointer;
-  transition: opacity .3s linear;
+  transition: opacity 0.3s linear;
 }
 
 .movies-card__save:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .movies-card__remove {
   width: 30px;
   height: 30px;
   background: #313131;
-  background-image: url('../../../images/save.svg');
+  background-image: url('../../images/remove.svg');
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 30px;
   border: none;
   cursor: pointer;
-  transition: opacity .3s linear;
+  transition: opacity 0.3s linear;
 }
 
 .movies-card__save-button_active:hover {
@@ -96,7 +96,7 @@
 }
 
 @media screen and (max-width: 450px) {
- .movies-card {
+  .movies-card {
     width: 300px;
     height: 236px;
   }

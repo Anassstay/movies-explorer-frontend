@@ -4,20 +4,20 @@ import NotFound from '../NotFound/NotFound';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
-import SavedMovies from '../Movies/SavedMovies/SavedMovies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import Main from '../Main/Main';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import Preloader from '../Movies/Preloader/Preloader';
+import Preloader from '../Preloader/Preloader';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import mainApi from '../../utils/mainApi';
 import moviesApi from '../../utils/moviesApi';
 import auth from '../../utils/auth';
-
+import { DURATE_VIEW_NOTIFY } from '../../utils/constants';
 
 function App () {
   const [currentUser, setCurrentUser] = useState({}); // содержит информацию о текущем пользователе
@@ -27,6 +27,9 @@ function App () {
   const [savedMovies, setSavedMovies] = useState([]); // состояние, которое хранит список сохраненных фильмов
   const [initialAllMovies, setInitialAllMovies] = useState([]); //содержит исходный список всех фильмов, полученный изначально
   const [allMovies, setAllMovies] = useState([]); //текущий список всех фильмов, который может изменяться в процессе работы
+  const [errorFetchAuth, setErrorFetchAuth] = useState(''); //ошибки, возникающие при выполнении запросов на аутентификацию
+  const [errorFetchEditProfile, setErrorFetchEditProfile] = useState(''); //ошибки, возникающие при выполнении запросов на редактирование профиля пользователя
+  const [statusFetchEditProfile, setStatusFetchEditProfile] = useState(null); //статус выполнения запроса на редактирование профиля пользователя
 
   const navigate = useNavigate(); // хук
 
@@ -95,7 +98,16 @@ function App () {
       .then(() => {
         handleAutorize({ email, password });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setErrorFetchAuth('Ошибка авторизации: ' + err.message)
+        console.log(err)
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setTimeout(() => {
+          setErrorFetchAuth('')
+        }, DURATE_VIEW_NOTIFY)
+      })
   }
 
   // аутентификация(вход)
@@ -103,37 +115,52 @@ function App () {
     setIsLoading(true);
     auth.authorize({ email, password })
       .then((res) => {
-        console.log(res)
         setIsLoggedIn(true);// войдено
         navigate('/movies', { replace: true });// перебросить на страницу
         handleGetUser();
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        setErrorFetchAuth('Ошибка авторизации: ' + err)
+        console.log(err)
+      })
       .finally(() => {
         setIsLoading(false);
-      });
+        setTimeout(() => {
+          setErrorFetchAuth('')
+        }, DURATE_VIEW_NOTIFY)
+      })
   };
 
   function handleEditProfile ({ name, email }) {
+    setIsLoading(true);
     mainApi.editProfile({ name, email })
       .then(() => {
         navigate('/profile', { replace: true });
         handleGetUser();
+        setErrorFetchEditProfile('Данные успешно обновлены')
+        setStatusFetchEditProfile(true)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setErrorFetchEditProfile('Ошибка обновления: ' + err.message)
+        setStatusFetchEditProfile(false)
+        console.log(err)
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setErrorFetchEditProfile('')
+        }, DURATE_VIEW_NOTIFY)
+        setIsLoading(false);
+      })
   };
 
   // console.log(movie)
   const handleSaveMovie = (movie) => {
-    console.log(movie)
     mainApi.saveMovie(movie)
       .then((res) => {
         const updatedMovies = allMovies.map((movieToUpdate) =>
           movieToUpdate.id === res.movieId ? { ...movieToUpdate, class: 'save' } : movieToUpdate
         );
         setAllMovies(updatedMovies);
-        // console.log(updatedMovies)
-        // console.log('updatedMovies')
         res.class = 'remove';
         setSavedMovies((prevMovies) => [...prevMovies, res]);
       })
@@ -171,6 +198,7 @@ function App () {
   const handleSignOut = () => {
     auth.logout()
       .then(() => {
+        localStorage.clear();
         setIsLoggedIn(false); // не вошли
         navigate('/', { replace: true }); // перебросить на главную
       })
@@ -234,6 +262,8 @@ function App () {
                     isLoading={isLoading}
                     onSignOut={handleSignOut}
                     onEditProfile={handleEditProfile}
+                    errorFetchEditProfile={errorFetchEditProfile}
+                    statusFetchEditProfile={statusFetchEditProfile}
                   />
                 }
               />
@@ -244,6 +274,7 @@ function App () {
                     onSignup={handleRegister}
                     isLoading={isLoading}
                     isLoggedIn={isLoggedIn}
+                    errorFetchAuth={errorFetchAuth}
                   />
                 }
               />
@@ -254,6 +285,7 @@ function App () {
                     onSignin={handleAutorize}
                     isLoading={isLoading}
                     isLoggedIn={isLoggedIn}
+                    errorFetchAuth={errorFetchAuth}
                   />
                 }
               />
