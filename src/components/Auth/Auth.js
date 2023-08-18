@@ -9,7 +9,7 @@ function Auth (props) {
       <Logo />
       <h1 className='auth__title'>{props.headerText}</h1>
       <div className='auth__container'>
-        <Form buttonText={props.buttonText} handleSubmit={props.handleSubmit} isFormValid={props.isFormValid}>
+        <Form buttonText={props.buttonText} name={props.name} handleSubmit={props.handleSubmit} isFormValid={props.isFormValid}>
           {props.children}
           <span className={`auth__error ${props.errorFetchAuth ? 'auth__error_fetch' : ''}`}>{props.errorFetchAuth}</span>
         </Form>

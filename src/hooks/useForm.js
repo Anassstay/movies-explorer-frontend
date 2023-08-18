@@ -1,12 +1,12 @@
 import { useState, useCallback } from 'react';
 import isEmail from 'validator/es/lib/isEmail';
 
-function useForm() {
+function useForm () {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isFormValid, setFormValid] = useState(false);
 
-  function onChange(e) {
+  function onChange (e) {
     const { name, value } = e.target;
     if (name === 'name' && e.target.validity.patternMismatch) {
       e.target.setCustomValidity('Имя должно содержать только кириллицу, латиницу, пробел или дефис');
@@ -17,11 +17,12 @@ function useForm() {
     }
     setValues((values) => ({ ...values, [name]: value }));
     setErrors((errors) => ({ ...errors, [name]: e.target.validationMessage }));
-    const isFormValid = e.target.closest('form').checkValidity();
+    const isFormValid = e.target.closest('form')?.checkValidity();
+    console.log(e.target.closest('form'));
     setFormValid(isFormValid);
   }
 
-  const resetValidation = useCallback(function reset(values = {}, errors = {}, isFormValid = false) {
+  const resetValidation = useCallback(function reset (values = {}, errors = {}, isFormValid = false) {
     setValues(values);
     setErrors(errors);
     setFormValid(isFormValid);

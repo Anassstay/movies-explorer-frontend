@@ -32,7 +32,7 @@ function Profile (props) {
       }
     }
   }, [props.statusFetchEditProfile])
-  
+
   function handleEditClick () {
     setEditStatus(!isEdit);
   }
@@ -54,7 +54,7 @@ function Profile (props) {
       document.removeEventListener('keydown', handleEscClose);
     }
   }, [isEdit]);
-  
+
   return (
     <>
       <Header isLoggedIn={props.isLoggedIn} />
@@ -67,7 +67,7 @@ function Profile (props) {
           >
             <label className='profile__input-label' htmlFor='name'>Имя</label>
             <input
-              className={`profile__input ${errors.name ? 'profile__input_is_not-valid' : ''
+              className={`form profile__input ${errors.name ? 'profile__input_is_not-valid' : ''
                 }`}
               placeholder='Имя'
               type='text'

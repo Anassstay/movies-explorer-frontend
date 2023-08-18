@@ -4,13 +4,13 @@ import NotFound from '../NotFound/NotFound';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
-import SavedMovies from '../Movies/SavedMovies/SavedMovies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import Main from '../Main/Main';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import Preloader from '../Movies/Preloader/Preloader';
+import Preloader from '../Preloader/Preloader';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
@@ -132,6 +132,7 @@ function App () {
   };
 
   function handleEditProfile ({ name, email }) {
+    setIsLoading(true);
     mainApi.editProfile({ name, email })
       .then(() => {
         navigate('/profile', { replace: true });
@@ -148,6 +149,7 @@ function App () {
         setTimeout(() => {
           setErrorFetchEditProfile('')
         }, DURATE_VIEW_NOTIFY)
+        setIsLoading(false);
       })
   };
 

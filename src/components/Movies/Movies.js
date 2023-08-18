@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import SearchForm from './SearchForm/SearchForm';
-import MoviesCardList from './MoviesCardList/MoviesCardList';
-import MoviesCard from './MoviesCard/MoviesCard';
-import Preloader from './Preloader/Preloader';
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
 import { filterMoviesHandler } from '../../utils/filterMoviesHandler';
 import { ResizeHandler } from '../../utils/resizeHandler';
 import './Movies.css';
 
 function Movies (props) {
-  const moviesToShowOnPageByWindowSize = ResizeHandler();
+  const moviesToShowOnPageByWindowSize = ResizeHandler(true);
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQueryMovies') || '');
   const [shortFilmsFilter, setShortFilmsFilter] = useState(
     localStorage.getItem('shortFilmsFilterMovies')
@@ -34,8 +34,7 @@ function Movies (props) {
   //Константа movies получает отфильтрованный список фильмов с помощью функции filterMoviesHandler, которой передаются следующие параметры:
   //allMovies (весь список фильмов), searchQuery (строка для поиска), shortFilmsFilter (флаг, указывающий на то, нужны ли только фильмы короткометражного типа)
   // и movieCount (количество фильмов, которые нужно показать).
-  const movies = filterMoviesHandler(props.movies, searchQuery, shortFilmsFilter, movieCount);
-
+  const [movies, qtyItemsFilteredMovies] = filterMoviesHandler(props.movies, searchQuery, shortFilmsFilter, movieCount);
   //Каждый элемент массива movies преобразуется с помощью метода map в компонент MoviesCard, которому передаются следующие параметры:
   //key (уникальный идентификатор элемента), class (класс для стилизации компонента), movie (объект с информацией о фильме),
   //onRemove (обработчик удаления фильма) и onSave (обработчик сохранения фильма).
@@ -83,6 +82,7 @@ function Movies (props) {
           moviesCards={moviesCards}
           addMovies={loadMoreMovies}
           maxMovies={movieCount}
+          qtyItemsFilteredMovies={qtyItemsFilteredMovies}
         />
       )}
     </main>

@@ -34,7 +34,6 @@ const Register = (props) => {
           type='text'
           name='name'
           id='name'
-          form='form'
           autoComplete='off'
           required
           minLength='5'
@@ -52,7 +51,6 @@ const Register = (props) => {
           type='email'
           name='email'
           id='email'
-          form='form'
           autoComplete='off'
           required
           minLength='8'
@@ -69,7 +67,6 @@ const Register = (props) => {
           type='password'
           name='password'
           id='password'
-          form='form'
           autoComplete='off'
           required
           minLength='8'

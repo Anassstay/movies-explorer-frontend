@@ -6,4 +6,4 @@ export const BASE_URL = 'https://diploma.api.a.stay.nomoredomains.rocks';
 export const SHORT_MOVIE = 40;
 export const MAX_MOVIES_ON_PAGE = 12;
 export const MAX_ADD_MOVIES_ON_PAGE = 3;
-export const DURATE_VIEW_NOTIFY = 1000;
+export const DURATE_VIEW_NOTIFY = 5000;
